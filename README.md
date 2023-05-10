@@ -7,4 +7,5 @@ App que permite **convertir** cualquier monto en **pesos al** valor actual de lo
 - Next.js 13.4 con directorio **app** estable
 - TypeScript  
 - Tailwind CSS  
-- Playwright
+- JSDOM
+- API de dolarsi (fallback por si falla el WebScraping)
