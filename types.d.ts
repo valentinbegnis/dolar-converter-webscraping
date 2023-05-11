@@ -3,9 +3,28 @@ type DolarPricesKey = 'Dólar blue' | 'Dólar oficial' | 'Dólar bolsa' | 'Conta
 interface Dolar {
   buy: string
   sell: string
-  updatedAt: string
+  updatedAt?: string
 }
 
 type DolarPrices = {
   [key in DolarPricesKey]?: Dolar
+}
+
+interface DolarFromAPI {
+  casa: {
+    compra: string
+    venta: string
+    agencia: string
+    nombre: string
+    variacion?: string
+    ventaCero?: string
+    decimales: string
+  }
+}
+
+interface DolarPricesFromAPI {
+  [key: string]: {
+    buy: string
+    sell: string
+  }
 }
