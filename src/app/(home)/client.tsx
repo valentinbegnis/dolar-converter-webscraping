@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import DolarCard from '@/components/DolarCard'
+import { DollarSign } from '@/components/Icons'
 
 interface Props {
   dolars: DolarPrices
@@ -9,26 +10,46 @@ interface Props {
 
 export default function HomeClient ({ dolars }: Props) {
   const [amount, setAmount] = useState(0)
+  const [showWarning, setShowWarning] = useState('')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    const numberRegEx = /^\d+$/
+    const maxNumber = 1000000000000
+
+    if (numberRegEx.test(value) && Number(value) < maxNumber) {
+      setAmount(Number(value))
+      setShowWarning('')
+      return
+    }
+
+    setShowWarning('El número máximo de digitos es 13.')
+  }
 
   return (
     <>
-      <section className='flex flex-col px-4 pt-6'>
+      <fieldset className='w-[320px] flex flex-col px-4 pt-6'>
         <label htmlFor='monto'>
-          <span className='text-lg font-medium text-gray-700'>
+          <span className='text-lg text-gray-100'>
             Monto en ARS
           </span>
         </label>
-        <input
-          id='monto'
-          type='number'
-          min={1}
-          placeholder='50000'
-          onChange={e => setAmount(Number(e.target.value))}
-          className='min-w-[320px] px-2 py-1 border-2 rounded-md border-stone-400'
-        />
-      </section>
+        <div tabIndex={0} className='flex items-center px-2 bg-white rounded-md focus:outline-blue-500'>
+          <DollarSign />
+          <input
+            id='monto'
+            type='number'
+            min={1}
+            max={1000000000000}
+            placeholder='50000'
+            onChange={e => handleChange(e)}
+            className='w-full py-2 ml-2 rounded-md outline-none'
+          />
+        </div>
+      </fieldset>
+      {showWarning.length > 1 && <p className='pt-2 text-orange-200'>{showWarning}</p>}
 
-      <section className='flex justify-center gap-6 px-4 pb-6 rounded-xl'>
+      <section className='max-w-[900px] flex justify-center gap-6 px-4 py-6 rounded-xl'>
         <ul className='flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row'>
           {Object.entries(dolars).map(([key, value]) => (
             <DolarCard

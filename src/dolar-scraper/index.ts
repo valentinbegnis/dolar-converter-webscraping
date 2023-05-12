@@ -32,9 +32,8 @@ export const scrapeDolarPrices = async () => {
     const { type, url } = dolar
 
     const res = await fetch(url, { cache: 'no-store' })
-
     if (!res.ok) {
-      throw new FetchError(`Error fetching website. Status code: ${res.status}`, res.status)
+      throw new FetchError(`Error fetching resource. Status code: ${res.status}`, res.status)
     }
 
     const page = await res.text()

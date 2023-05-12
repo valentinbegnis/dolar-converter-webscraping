@@ -1,5 +1,6 @@
 import { formatDolarFromAPIResponse } from '@/utils'
 import HomeClient from './client'
+import { FetchError } from '@/custom-errors/fetchError'
 
 export default async function Home () {
   let dolars: DolarPrices = {}
@@ -10,15 +11,19 @@ export default async function Home () {
     })
     dolars = await res.json()
   } catch (err) {
-    const backupRes = await fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales', {
-      next: { revalidate: 60 }
-    })
-    const data: DolarFromAPI[] = await backupRes.json()
-    dolars = formatDolarFromAPIResponse(data)
+    try {
+      const backupRes = await fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales', {
+        next: { revalidate: 60 }
+      })
+      const data: DolarFromAPI[] = await backupRes.json()
+      dolars = formatDolarFromAPIResponse(data)
+    } catch (err) {
+      throw new FetchError('Nuestros servicios no están disponibles en este momento.')
+    }
   }
 
   return (
-    <main className='flex flex-col items-center justify-center min-h-screen gap-6'>
+    <main className='flex flex-col items-center justify-center min-h-screen'>
       <HomeClient dolars={dolars} />
     </main>
   )
