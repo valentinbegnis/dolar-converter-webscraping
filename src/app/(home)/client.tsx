@@ -10,7 +10,6 @@ interface Props {
 
 export default function HomeClient ({ dolars }: Props) {
   const [amount, setAmount] = useState(0)
-  const [showWarning, setShowWarning] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -19,18 +18,14 @@ export default function HomeClient ({ dolars }: Props) {
 
     if (numberRegEx.test(value) && Number(value) < maxNumber) {
       setAmount(Number(value))
-      setShowWarning('')
-      return
     }
-
-    setShowWarning('El número máximo de digitos es 13.')
   }
 
   return (
     <>
       <fieldset className='w-[320px] flex flex-col px-4 pt-6'>
         <label htmlFor='monto'>
-          <span className='text-lg text-gray-100'>
+          <span className='text-lg font-medium text-gray-100'>
             Monto en ARS
           </span>
         </label>
@@ -46,8 +41,8 @@ export default function HomeClient ({ dolars }: Props) {
             className='w-full py-2 ml-2 rounded-md outline-none'
           />
         </div>
+        <p className='pt-1 text-sm text-gray-300'>Número máximo de dígitos: 13</p>
       </fieldset>
-      {showWarning.length > 1 && <p className='pt-2 text-orange-200'>{showWarning}</p>}
 
       <section className='max-w-[900px] flex justify-center gap-6 px-4 py-6 rounded-xl'>
         <ul className='flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row'>
