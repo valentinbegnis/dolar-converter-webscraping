@@ -5,7 +5,7 @@ interface Props {
   reset: () => void
 }
 
-export default function error ({ error, reset }: Props) {
+export default function Error ({ error, reset }: Props) {
   return (
     <div className='grid h-full px-4 text-center place-content-center'>
       <p className='text-emerald-200'>¡Ocurrió un error!</p>
