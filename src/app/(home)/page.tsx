@@ -6,12 +6,12 @@ export default async function Home () {
   let dolars: DolarPrices = {}
 
   try {
-    const res = await fetch('https://dolar-converter.netlify.app/api/get-dolar-prices', { cache: 'no-store' })
+    const res = await fetch('https://dolar-converter.netlify.app/api/get-dolar-prices', { cache: 'no-cache' })
     dolars = await res.json()
   } catch (err) {
     console.log(err)
     try {
-      const backupRes = await fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales', { cache: 'no-store' })
+      const backupRes = await fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales', { cache: 'no-cache' })
       const data: DolarFromAPI[] = await backupRes.json()
       dolars = formatDolarFromAPIResponse(data)
     } catch (err) {
