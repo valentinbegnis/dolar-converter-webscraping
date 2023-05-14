@@ -6,7 +6,7 @@ export default async function Home () {
   let dolars: DolarPrices = {}
 
   try {
-    const res = await fetch('http://localhost:3000/api/get-dolar-prices', {
+    const res = await fetch('/api/get-dolar-prices', {
       next: { revalidate: 60 }
     })
     dolars = await res.json()
