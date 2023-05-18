@@ -9,15 +9,15 @@ interface Props {
 }
 
 export default function HomeClient ({ dolars }: Props) {
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    const numberRegEx = /^\d+$/
-    const maxNumber = 1000000000000
+    const numberRegEx = /^[0-9]*$/
+    const maxDigits = 9
 
-    if (numberRegEx.test(value) && Number(value) < maxNumber) {
-      setAmount(Number(value))
+    if (numberRegEx.test(value) && value.length <= maxDigits) {
+      setAmount(value.replace(/^0*/, ''))
     }
   }
 
@@ -34,14 +34,14 @@ export default function HomeClient ({ dolars }: Props) {
           <input
             id='monto'
             type='number'
-            min={1}
-            max={1000000000000}
+            min={0}
             placeholder='50000'
             onChange={e => handleChange(e)}
+            value={amount}
             className='w-full py-2 ml-2 rounded-md outline-none'
           />
         </div>
-        <p className='pt-1 text-sm text-gray-300'>Número máximo de dígitos: 13</p>
+        <p className='pt-1 text-sm text-gray-300'>Número máximo de dígitos: 9</p>
       </fieldset>
 
       <section className='max-w-[900px] flex justify-center gap-6 px-4 py-6 rounded-xl'>

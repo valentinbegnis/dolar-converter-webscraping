@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Peso a Dólar',
-  description: 'Conversor Peso a Dólar y cotizaciones minuto a minuto'
+  description: 'Conversor Peso a Dólar y últimas cotizaciones'
 }
 
 export default function RootLayout ({
@@ -14,8 +14,8 @@ export default function RootLayout ({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en' className='h-full'>
-      <body className={`${inter.className} bg-gradient-to-tr from-emerald-950 to-emerald-700 h-full`}>
+    <html lang='es' className='h-full'>
+      <body className={`${inter.className} h-full bg-fixed bg-no-repeat bg-gradient-to-tr from-emerald-950 to-emerald-700`}>
         {children}
       </body>
     </html>
